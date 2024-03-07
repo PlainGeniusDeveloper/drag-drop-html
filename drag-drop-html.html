@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag and Drop HTML Controls with Property Editor</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<style>
+    /* Add your custom CSS styling here */
+    .toolbox {
+        border: 1px solid #ccc;
+        padding: 10px;
+        float: left;
+        width: 200px;
+    }
+    .toolbox .control {
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+    .workspace {
+        border: 1px solid #ccc;
+        width: 70%;
+        height: 400px;
+        float: left;
+        margin-left: 20px;
+        padding: 10px;
+        position: relative;
+    }
+    .draggable {
+        cursor: move;
+    }
+    .property-editor {
+        display: none;
+        position: absolute;
+        background: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 999;
+    }
+</style>
+</head>
+<body>
+    <div class="toolbox">
+        <div class="control" data-type="button">Button</div>
+        <div class="control" data-type="input">Input</div>
+        <div class="control" data-type="textarea">Textarea</div>
+        <div class="control" data-type="checkbox">Checkbox</div>
+        <div class="control" data-type="radio">Radio Button</div>
+        <div class="control" data-type="dropdown">Dropdown</div>
+        <!-- Add more controls here -->
+    </div>
+    <div class="workspace">
+        <div class="property-editor" id="propertyEditor">
+            <label for="controlText">Text:</label>
+            <input type="text" id="controlText" class="form-control">
+            <button id="applyButton" class="btn btn-primary">Apply</button>
+        </div>
+        <form id="form">
+            <!-- Placeholder for dynamically added controls -->
+        </form>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function() {
+        var currentControl;
+
+        // Make controls draggable
+        $(".control").draggable({
+            helper: "clone"
+        });
+
+        // Make workspace droppable
+        $(".workspace").droppable({
+            drop: function(event, ui) {
+                var elementType = ui.helper.data("type");
+                var element;
+
+                switch (elementType) {
+                    case "button":
+                        element = $("<button>").addClass("btn btn-primary draggable").text("Button");
+                        break;
+                    case "input":
+                        element = $("<input>").addClass("form-control draggable").attr("type", "text");
+                        break;
+                    case "textarea":
+                        element = $("<textarea>").addClass("form-control draggable");
+                        break;
+                    case "checkbox":
+                        element = $("<input>").addClass("form-check-input draggable").attr("type", "checkbox");
+                        break;
+                    case "radio":
+                        element = $("<input>").addClass("form-check-input draggable").attr("type", "radio");
+                        break;
+                    case "dropdown":
+                        element = $("<select>").addClass("form-control draggable").append($("<option>").text("Option 1"), $("<option>").text("Option 2"));
+                        break;
+                    // Add more cases for other controls as needed
+                }
+
+                if (element) {
+                    element.on("click", function(event) {
+                        currentControl = $(this);
+                        showPropertyEditor(event);
+                    });
+                    $(this).find("#form").append($("<div>").addClass("form-group").append(element));
+                }
+            }
+        });
+
+        // Make form sortable
+        $("#form").sortable();
+
+        // Property editor functionality
+        $("#applyButton").on("click", function() {
+            var controlText = $("#controlText").val();
+            if (currentControl) {
+                currentControl.text(controlText);
+                $(".property-editor").hide();
+            }
+        });
+
+        function showPropertyEditor(event) {
+            var propertyEditor = $("#propertyEditor");
+            propertyEditor.css({
+                display: "block",
+                left: event.clientX + "px",
+                top: event.clientY + "px",
+            });
+        }
+    });
+</script>
+</body>
+</html>
