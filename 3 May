@@ -27,7 +27,7 @@
 
     .workspace {
       border: 1px solid #ccc;
-      width: 70%;
+      width: 65%;
       height: 400px;
       float: left;
       margin-left: 20px;
@@ -79,282 +79,283 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="script.js"></script>
   <script>
-    $(document).ready(function () {
-      var currentControl;
+  //   $(document).ready(function () {
+  //     var currentControl;
 
-      // Make controls draggable
-      $(".control").draggable({
-        helper: "clone"
-      });
+  //     // Make controls draggable
+  //     $(".control").draggable({
+  //       helper: "clone"
+  //     });
 
-      // Make workspace droppable
-      $(".workspace").droppable({
-        drop: function (event, ui) {
-          var elementType = ui.helper.data("type");
-          var element;
+  //     // Make workspace droppable
+  //     $(".workspace").droppable({
+  //       drop: function (event, ui) {
+  //         var elementType = ui.helper.data("type");
+  //         var element;
 
-          switch (elementType) {
-            case "button":
-              element = $("<div>").addClass("form-group").append(
-                $("<button>").addClass("btn btn-primary draggable").text("Button").attr("type", "button").on("click", function (event) {
-                  event.preventDefault(); // Prevent default behavior of button click
-                })
-              );
-              break;
+  //         switch (elementType) {
+  //           case "button":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<button>").addClass("btn btn-primary draggable").text("Button").attr("type", "button").on("click", function (event) {
+  //                 event.preventDefault(); // Prevent default behavior of button click
+  //               })
+  //             );
+  //             break;
 
-            case "input":
-              element = $("<div>").addClass("form-group").append(
-                $("<label>").attr("for", "input-" + Math.random()).text("Input Label"),
-                $("<input>").addClass("form-control draggable").attr("type", "text").attr("placeholder", "Input Placeholder")
-              );
-              break;
-            case "textarea":
-              element = $("<div>").addClass("form-group").append(
-                $("<label>").attr("for", "textarea-" + Math.random()).text("Textarea Label"),
-                $("<textarea>").addClass("form-control draggable").attr("placeholder", "Textarea Placeholder")
-              );
-              break;
-            case "checkbox":
-              element = $("<div>").addClass("form-group").append(
-                $("<div>").addClass("form-check").append(
-                  $("<input>").addClass("form-check-input draggable").attr("type", "checkbox").attr("id", "checkbox-" + Math.random()),
-                  $("<label>").addClass("form-check-label").attr("for", "checkbox-" + Math.random()).text("Checkbox Label")
-                )
-              );
-              break;
-            case "radio":
-              element = $("<div>").addClass("form-group").append(
-                $("<div>").addClass("form-check").append(
-                  $("<input>").addClass("form-check-input draggable").attr("type", "radio").attr("id", "radio-" + Math.random()),
-                  $("<label>").addClass("form-check-label").attr("for", "radio-" + Math.random()).text("Radio Label")
-                )
-              );
-              break;
-            case "dropdown":
-              element = $("<div>").addClass("form-group").append(
-                $("<label>").addClass("form-label").attr("for", "dropdown-" + Math.random()).text("Dropdown Label"),
-                $("<select>").addClass("form-control draggable dropdown-select").attr("id", "dropdown-" + Math.random())
-              );
-              break;
-            case "tabbedControl": // Added case for Tabbed Control
-              element = $("<div>").addClass("form-group").append(
-                $("<div>").attr("id", "tabControl").addClass("tab").append(
-                  $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab1')").text("Tab 1"),
-                  $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab2')").text("Tab 2"),
-                  $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab3')").text("Tab 3")
-                ),
-                $("<div>").attr("id", "Tab1").addClass("tabcontent").append(
-                  $("<h3>").text("Tab 1"),
-                  $("<p>").text("Content for Tab 1")
-                ),
-                $("<div>").attr("id", "Tab2").addClass("tabcontent").append(
-                  $("<h3>").text("Tab 2"),
-                  $("<p>").text("Content for Tab 2")
-                ),
-                $("<div>").attr("id", "Tab3").addClass("tabcontent").append(
-                  $("<h3>").text("Tab 3"),
-                  $("<p>").text("Content for Tab 3")
-                )
-              );
-              break;
-            // Add more cases for other controls as needed
-          }
+  //           case "input":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<label>").attr("for", "input-" + Math.random()).text("Input Label"),
+  //               $("<input>").addClass("form-control draggable").attr("type", "text").attr("placeholder", "Input Placeholder")
+  //             );
+  //             break;
+  //           case "textarea":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<label>").attr("for", "textarea-" + Math.random()).text("Textarea Label"),
+  //               $("<textarea>").addClass("form-control draggable").attr("placeholder", "Textarea Placeholder")
+  //             );
+  //             break;
+  //           case "checkbox":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<div>").addClass("form-check").append(
+  //                 $("<input>").addClass("form-check-input draggable").attr("type", "checkbox").attr("id", "checkbox-" + Math.random()),
+  //                 $("<label>").addClass("form-check-label").attr("for", "checkbox-" + Math.random()).text("Checkbox Label")
+  //               )
+  //             );
+  //             break;
+  //           case "radio":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<div>").addClass("form-check").append(
+  //                 $("<input>").addClass("form-check-input draggable").attr("type", "radio").attr("id", "radio-" + Math.random()),
+  //                 $("<label>").addClass("form-check-label").attr("for", "radio-" + Math.random()).text("Radio Label")
+  //               )
+  //             );
+  //             break;
+  //           case "dropdown":
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<label>").addClass("form-label").attr("for", "dropdown-" + Math.random()).text("Dropdown Label"),
+  //               $("<select>").addClass("form-control draggable dropdown-select").attr("id", "dropdown-" + Math.random())
+  //             );
+  //             break;
+  //           case "tabbedControl": // Added case for Tabbed Control
+  //             element = $("<div>").addClass("form-group").append(
+  //               $("<div>").attr("id", "tabControl").addClass("tab").append(
+  //                 $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab1')").text("Tab 1"),
+  //                 $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab2')").text("Tab 2"),
+  //                 $("<button>").addClass("tablinks").attr("onclick", "openCity(event, 'Tab3')").text("Tab 3")
+  //               ),
+  //               $("<div>").attr("id", "Tab1").addClass("tabcontent").append(
+  //                 $("<h3>").text("Tab 1"),
+  //                 $("<p>").text("Content for Tab 1")
+  //               ),
+  //               $("<div>").attr("id", "Tab2").addClass("tabcontent").append(
+  //                 $("<h3>").text("Tab 2"),
+  //                 $("<p>").text("Content for Tab 2")
+  //               ),
+  //               $("<div>").attr("id", "Tab3").addClass("tabcontent").append(
+  //                 $("<h3>").text("Tab 3"),
+  //                 $("<p>").text("Content for Tab 3")
+  //               )
+  //             );
+  //             break;
+  //           // Add more cases for other controls as needed
+  //         }
 
-          if (element) {
-            element.find(".draggable").on("click", function (event) {
-              currentControl = $(this);
-              // Display the control properties in the sidebar
-              showPropertyPane();
-            });
-            $(this).find("#form").append(element);
-          }
-        }
-      });
+  //         if (element) {
+  //           element.find(".draggable").on("click", function (event) {
+  //             currentControl = $(this);
+  //             // Display the control properties in the sidebar
+  //             showPropertyPane();
+  //           });
+  //           $(this).find("#form").append(element);
+  //         }
+  //       }
+  //     });
 
-      // Make form sortable
-      $(".sortable").sortable({
-        update: function (event, ui) {
-          // Update the currentControl variable to the newly positioned control
-          currentControl = $(ui.item).find(".draggable");
-          // Display the control properties in the sidebar
-          showPropertyPane();
-        }
-      });
+  //     // Make form sortable
+  //     $(".sortable").sortable({
+  //       update: function (event, ui) {
+  //         // Update the currentControl variable to the newly positioned control
+  //         currentControl = $(ui.item).find(".draggable");
+  //         // Display the control properties in the sidebar
+  //         showPropertyPane();
+  //       }
+  //     });
 
-      // Property editor functionality
-      $("#applyButton").on("click", function () {
-        // Get input values from the property pane
-        var controlText = $("#controlText").val();
-        // Get input values from the property pane
-        var controlText = $("#controlText").val();
-        var controlPlaceholder = $("#controlPlaceholder").val();
-        var controlLabel = $("#controlInputLabel").val();
-        var controlTextareaLabel = $("#controlTextareaLabel").val();
+  //     // Property editor functionality
+  //     $("#applyButton").on("click", function () {
+  //       // Get input values from the property pane
+  //       var controlText = $("#controlText").val();
+  //       // Get input values from the property pane
+  //       var controlText = $("#controlText").val();
+  //       var controlPlaceholder = $("#controlPlaceholder").val();
+  //       var controlLabel = $("#controlInputLabel").val();
+  //       var controlTextareaLabel = $("#controlTextareaLabel").val();
 
-        // Apply the input values to the current control
-        if (currentControl) {
-          //currentControl.text(controlText);
-          currentControl.attr('placeholder', controlPlaceholder);
-          // Update label if the currentControl is a textarea or input
-          if (currentControl.prop("tagName").toLowerCase() === "textarea") {
-            var labelElement = currentControl.parent().find("label");
-            labelElement.text(controlTextareaLabel);
-          } else if (currentControl.prop("tagName").toLowerCase() === "input") {
-            var labelElement = currentControl.parent().find("label");
-            labelElement.text(controlLabel);
-          } else if (currentControl.hasClass("dropdown-select")) {
-            // Update label for dropdown select
-            var labelElement = currentControl.parent().find("label");
-            labelElement.text(controlLabel);
-            // Populate dropdown with values
-            var selectedDataType = $('#dataType').val();
-            if (selectedDataType === 'static') {
-              var staticValues = $('#staticValuesInput').val().split(',');
-              populateDropdown(currentControl, staticValues);
-            } else if (selectedDataType === 'api') {
-              var apiUrl = $('#apiUrl').val();
-              var randomNumber = Math.random();
-              $.get(apiUrl, function (data) {
-                populateDropdownFromAPI(currentControl, apiUrl);
-              });
-            }
-          }
-          // Hide the property pane
-          hidePropertyPane();
-        }
-      });
+  //       // Apply the input values to the current control
+  //       if (currentControl) {
+  //         //currentControl.text(controlText);
+  //         currentControl.attr('placeholder', controlPlaceholder);
+  //         // Update label if the currentControl is a textarea or input
+  //         if (currentControl.prop("tagName").toLowerCase() === "textarea") {
+  //           var labelElement = currentControl.parent().find("label");
+  //           labelElement.text(controlTextareaLabel);
+  //         } else if (currentControl.prop("tagName").toLowerCase() === "input") {
+  //           var labelElement = currentControl.parent().find("label");
+  //           labelElement.text(controlLabel);
+  //         } else if (currentControl.hasClass("dropdown-select")) {
+  //           // Update label for dropdown select
+  //           var labelElement = currentControl.parent().find("label");
+  //           labelElement.text(controlLabel);
+  //           // Populate dropdown with values
+  //           var selectedDataType = $('#dataType').val();
+  //           if (selectedDataType === 'static') {
+  //             var staticValues = $('#staticValuesInput').val().split(',');
+  //             populateDropdown(currentControl, staticValues);
+  //           } else if (selectedDataType === 'api') {
+  //             var apiUrl = $('#apiUrl').val();
+  //             var randomNumber = Math.random();
+  //             $.get(apiUrl, function (data) {
+  //               populateDropdownFromAPI(currentControl, apiUrl);
+  //             });
+  //           }
+  //         }
+  //         // Hide the property pane
+  //         hidePropertyPane();
+  //       }
+  //     });
 
-      // Function to show the property pane
-      function showPropertyPane() {
-        // Show the sidebar
-        $("#propertySidebar").show();
+  //     // Function to show the property pane
+  //     function showPropertyPane() {
+  //       // Show the sidebar
+  //       $("#propertySidebar").show();
 
-        // Get current control properties
-        var controlText = currentControl.text();
-        var controlPlaceholder = '';
-        var controlLabel = '';
-        var controlTextareaLabel = '';
+  //       // Get current control properties
+  //       var controlText = currentControl.text();
+  //       var controlPlaceholder = '';
+  //       var controlLabel = '';
+  //       var controlTextareaLabel = '';
 
-        if (currentControl.prop("tagName").toLowerCase() === "textarea") {
-          controlPlaceholder = currentControl.attr('placeholder');
-          controlTextareaLabel = currentControl.parent().find("label").text();
-        } else if (currentControl.prop("tagName").toLowerCase() === "input") {
-          controlPlaceholder = currentControl.attr('placeholder');
-          controlLabel = currentControl.parent().find("label").text();
-        } else if (currentControl.hasClass("dropdown-select")) {
-          controlLabel = currentControl.parent().find("label").text();
-        }
+  //       if (currentControl.prop("tagName").toLowerCase() === "textarea") {
+  //         controlPlaceholder = currentControl.attr('placeholder');
+  //         controlTextareaLabel = currentControl.parent().find("label").text();
+  //       } else if (currentControl.prop("tagName").toLowerCase() === "input") {
+  //         controlPlaceholder = currentControl.attr('placeholder');
+  //         controlLabel = currentControl.parent().find("label").text();
+  //       } else if (currentControl.hasClass("dropdown-select")) {
+  //         controlLabel = currentControl.parent().find("label").text();
+  //       }
 
-        // Generate property pane content based on control type
-        var propertyPaneContent;
-        switch (currentControl.prop("tagName").toLowerCase()) {
-          case "button":
-            propertyPaneContent = '<div class="mb-3"><label for="controlText" class="form-label">Button Text:</label>' +
-              '<input type="text" id="controlText" class="form-control" value="' + controlText + '"></div>' +
-              '<div class="mb-3"><label for="controlLabel" class="form-label">Button Label:</label>' +
-              '<input type="text" id="controlLabel" class="form-control" value="' + controlLabel + '"></div>';
-            break;
-          case "input":
-            propertyPaneContent = '<div class="mb-3"><label for="controlPlaceholder" class="form-label">Input Placeholder:</label>' +
-              '<input type="text" id="controlPlaceholder" class="form-control" value="' + controlPlaceholder + '"></div>' +
-              '<div class="mb-3"><label for="controlInputLabel" class="form-label">Input Label:</label>' +
-              '<input type="text" id="controlInputLabel" class="form-control" value="' + controlLabel + '"></div>';
-            break;
-          case "textarea":
-            propertyPaneContent = '<div class="mb-3"><label for="controlPlaceholder" class="form-label">Textarea Placeholder:</label>' +
-              '<input type="text" id="controlPlaceholder" class="form-control" value="' + controlPlaceholder + '"></div>' +
-              '<div class="mb-3"><label for="controlTextareaLabel" class="form-label">Textarea Label:</label>' +
-              '<input type="text" id="controlTextareaLabel" class="form-control" value="' + controlTextareaLabel + '"></div>';
-            break;
-          case "select":
-            propertyPaneContent = '<div class="mb-3"><label for="controlLabel" class="form-label">Dropdown Label:</label>' +
-              '<input type="text" id="controlLabel" class="form-control" value="' + controlLabel + '"></div>' +
-              '<select id="dataType" class="form-select mb-3">' +
-              '<option value="static">Static Values</option>' +
-              '<option value="api">API Call</option>' +
-              '</select>' +
-              '<div id="staticValues" class="mb-3">' +
-              '<label for="staticValuesInput" class="form-label">Static Values:</label>' +
-              '<input type="text" id="staticValuesInput" class="form-control" placeholder="Enter comma-separated values">' +
-              '</div>' +
-              '<div id="apiFields" style="display: none;">' +
-              '<label for="apiUrl" class="form-label">API URL:</label>' +
-              '<input type="text" id="apiUrl" class="form-control" placeholder="Enter API endpoint">' +
-              '<div id="displayMemberField" class="mb-3">' +
-              '<label for="displayMemberInput" class="form-label">Display Member:</label>' +
-              '<input type="text" id="displayMemberInput" class="form-control" placeholder="Enter API response property for display">' +
-              '</div>' +
-              '<div id="valueMemberField" class="mb-3">' +
-              '<label for="valueMemberInput" class="form-label">Value Member:</label>' +
-              '<input type="text" id="valueMemberInput" class="form-control" placeholder="Enter API response property for value">' +
-              '</div>' +
-              '</div>';
-            break;
+  //       // Generate property pane content based on control type
+  //       var propertyPaneContent;
+  //       switch (currentControl.prop("tagName").toLowerCase()) {
+  //         case "button":
+  //           propertyPaneContent = '<div class="mb-3"><label for="controlText" class="form-label">Button Text:</label>' +
+  //             '<input type="text" id="controlText" class="form-control" value="' + controlText + '"></div>' +
+  //             '<div class="mb-3"><label for="controlLabel" class="form-label">Button Label:</label>' +
+  //             '<input type="text" id="controlLabel" class="form-control" value="' + controlLabel + '"></div>';
+  //           break;
+  //         case "input":
+  //           propertyPaneContent = '<div class="mb-3"><label for="controlPlaceholder" class="form-label">Input Placeholder:</label>' +
+  //             '<input type="text" id="controlPlaceholder" class="form-control" value="' + controlPlaceholder + '"></div>' +
+  //             '<div class="mb-3"><label for="controlInputLabel" class="form-label">Input Label:</label>' +
+  //             '<input type="text" id="controlInputLabel" class="form-control" value="' + controlLabel + '"></div>';
+  //           break;
+  //         case "textarea":
+  //           propertyPaneContent = '<div class="mb-3"><label for="controlPlaceholder" class="form-label">Textarea Placeholder:</label>' +
+  //             '<input type="text" id="controlPlaceholder" class="form-control" value="' + controlPlaceholder + '"></div>' +
+  //             '<div class="mb-3"><label for="controlTextareaLabel" class="form-label">Textarea Label:</label>' +
+  //             '<input type="text" id="controlTextareaLabel" class="form-control" value="' + controlTextareaLabel + '"></div>';
+  //           break;
+  //         case "select":
+  //           propertyPaneContent = '<div class="mb-3"><label for="controlLabel" class="form-label">Dropdown Label:</label>' +
+  //             '<input type="text" id="controlLabel" class="form-control" value="' + controlLabel + '"></div>' +
+  //             '<select id="dataType" class="form-select mb-3">' +
+  //             '<option value="static">Static Values</option>' +
+  //             '<option value="api">API Call</option>' +
+  //             '</select>' +
+  //             '<div id="staticValues" class="mb-3">' +
+  //             '<label for="staticValuesInput" class="form-label">Static Values:</label>' +
+  //             '<input type="text" id="staticValuesInput" class="form-control" placeholder="Enter comma-separated values">' +
+  //             '</div>' +
+  //             '<div id="apiFields" style="display: none;">' +
+  //             '<label for="apiUrl" class="form-label">API URL:</label>' +
+  //             '<input type="text" id="apiUrl" class="form-control" placeholder="Enter API endpoint">' +
+  //             '<div id="displayMemberField" class="mb-3">' +
+  //             '<label for="displayMemberInput" class="form-label">Display Member:</label>' +
+  //             '<input type="text" id="displayMemberInput" class="form-control" placeholder="Enter API response property for display">' +
+  //             '</div>' +
+  //             '<div id="valueMemberField" class="mb-3">' +
+  //             '<label for="valueMemberInput" class="form-label">Value Member:</label>' +
+  //             '<input type="text" id="valueMemberInput" class="form-control" placeholder="Enter API response property for value">' +
+  //             '</div>' +
+  //             '</div>';
+  //           break;
 
-          case "input":
-            if (currentControl.attr('type') === "checkbox" || currentControl.attr('type') === "radio") {
-              propertyPaneContent = '<div class="mb-3"><label for="controlText" class="form-label">' + currentControl.attr('placeholder') + ':</label>' +
-                '<input type="text" id="controlText" class="form-control"></div>';
-            }
-            break;
-          default:
-            propertyPaneContent = ''; // Default empty content
-            break;
-        }
+  //         case "input":
+  //           if (currentControl.attr('type') === "checkbox" || currentControl.attr('type') === "radio") {
+  //             propertyPaneContent = '<div class="mb-3"><label for="controlText" class="form-label">' + currentControl.attr('placeholder') + ':</label>' +
+  //               '<input type="text" id="controlText" class="form-control"></div>';
+  //           }
+  //           break;
+  //         default:
+  //           propertyPaneContent = ''; // Default empty content
+  //           break;
+  //       }
 
-        // Update the property pane content
-        $("#propertyPane").html(propertyPaneContent);
-        // Show/hide static values or API fields based on selection
-        $("#dataType").change(function () {
-          var selectedDataType = $(this).val();
-          if (selectedDataType === 'static') {
-            $("#staticValues").show();
-            $("#apiFields").hide();
-          } else if (selectedDataType === 'api') {
-            $("#staticValues").hide();
-            $("#apiFields").show();
-          }
-        });
-      }
+  //       // Update the property pane content
+  //       $("#propertyPane").html(propertyPaneContent);
+  //       // Show/hide static values or API fields based on selection
+  //       $("#dataType").change(function () {
+  //         var selectedDataType = $(this).val();
+  //         if (selectedDataType === 'static') {
+  //           $("#staticValues").show();
+  //           $("#apiFields").hide();
+  //         } else if (selectedDataType === 'api') {
+  //           $("#staticValues").hide();
+  //           $("#apiFields").show();
+  //         }
+  //       });
+  //     }
 
-      // Function to hide the property pane
-      function hidePropertyPane() {
-        // Hide the sidebar
-        $("#propertySidebar").hide();
-      }
+  //     // Function to hide the property pane
+  //     function hidePropertyPane() {
+  //       // Hide the sidebar
+  //       $("#propertySidebar").hide();
+  //     }
 
-      // Function to populate dropdown with values
-      function populateDropdown(dropdown, values) {
-        dropdown.empty();
-        values.forEach(function (value) {
-          dropdown.append($("<option>").text(value));
-        });
-      }
+  //     // Function to populate dropdown with values
+  //     function populateDropdown(dropdown, values) {
+  //       dropdown.empty();
+  //       values.forEach(function (value) {
+  //         dropdown.append($("<option>").text(value));
+  //       });
+  //     }
 
-      // Function to populate dropdown options from an API
-      // Function to populate dropdown options from an API
-      function populateDropdownFromAPI(dropdown, apiUrl) {
-        var displayMember = $('#displayMemberInput').val();
-        var valueMember = $('#valueMemberInput').val();
+  //     // Function to populate dropdown options from an API
+  //     // Function to populate dropdown options from an API
+  //     function populateDropdownFromAPI(dropdown, apiUrl) {
+  //       var displayMember = $('#displayMemberInput').val();
+  //       var valueMember = $('#valueMemberInput').val();
 
-        $.getJSON(apiUrl, function (data) {
-          dropdown.empty();
-          for (var key in data) {
-            if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
-              var items = data[key];
-              items.forEach(function (item) {
-                var displayText = item[displayMember];
-                var optionValue = item[valueMember];
-                dropdown.append($("<option>").val(optionValue).text(displayText));
-              });
-            }
-          }
-        });
-      }
+  //       $.getJSON(apiUrl, function (data) {
+  //         dropdown.empty();
+  //         for (var key in data) {
+  //           if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
+  //             var items = data[key];
+  //             items.forEach(function (item) {
+  //               var displayText = item[displayMember];
+  //               var optionValue = item[valueMember];
+  //               dropdown.append($("<option>").val(optionValue).text(displayText));
+  //             });
+  //           }
+  //         }
+  //       });
+  //     }
 
-    });
-  </script>
+  //   });
+  // </script>
 </body>
 
 </html>
